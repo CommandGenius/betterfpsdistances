@@ -4,8 +4,8 @@ import com.betterfpsdist.BetterfpsdistMod;
 import me.jellysquid.mods.sodium.client.render.chunk.RenderSection;
 import me.jellysquid.mods.sodium.client.render.chunk.RenderSectionManager;
 import me.jellysquid.mods.sodium.client.render.viewport.Viewport;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,12 +27,12 @@ public class SodiumRenderManagerMixin
     private void adjustDist(
       final int x, final int y, final int z, final CallbackInfoReturnable<Boolean> cir)
     {
-        if (Minecraft.getInstance().player == null)
+        if (MinecraftClient.getInstance().player == null)
         {
             return;
         }
 
-        final BlockPos pos = Minecraft.getInstance().player.blockPosition();
+        final BlockPos pos = MinecraftClient.getInstance().player.getBlockPos();
         int xDiff = x- (pos.getX() >> 4);
         int yDiff = y - (pos.getY() >> 4);
         int zDiff = z - (pos.getZ() >> 4);
