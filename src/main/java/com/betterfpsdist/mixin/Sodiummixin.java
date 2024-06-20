@@ -4,7 +4,7 @@ import com.betterfpsdist.BetterfpsdistMod;
 import me.jellysquid.mods.sodium.client.render.chunk.RenderSection;
 import me.jellysquid.mods.sodium.client.render.chunk.occlusion.OcclusionCuller;
 import me.jellysquid.mods.sodium.client.render.viewport.CameraTransform;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,16 +20,16 @@ public class Sodiummixin
       final RenderSection section,
       final float maxDistance, final CallbackInfoReturnable<Boolean> cir)
     {
-        if (MinecraftClient.getInstance().player != null)
+        if (Minecraft.getInstance().player != null)
         {
             if (distSqr(section.getOriginX(),
               section.getOriginY(),
               section.getOriginZ(),
-              MinecraftClient.getInstance().player.getX(),
-              MinecraftClient.getInstance().player.getY(),
-              MinecraftClient.getInstance().player.getZ())
-                  > (MinecraftClient.getInstance().options.getViewDistance().getValue() * 16) * (
-              MinecraftClient.getInstance().options.getViewDistance().getValue() * 16))
+              Minecraft.getInstance().player.getX(),
+              Minecraft.getInstance().player.getY(),
+              Minecraft.getInstance().player.getZ())
+                  > (Minecraft.getInstance().options.renderDistance().get() * 16) * (
+              Minecraft.getInstance().options.renderDistance().get() * 16))
             {
                 cir.setReturnValue(false);
             }
