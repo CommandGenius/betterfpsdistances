@@ -22,14 +22,14 @@ public class LevelRendererMixin
     //private HashSet<BlockPos>                 renderedPositions = new HashSet<>();
     //private long                              nextUpdate        = 0;
 
-    @Redirect(method = "RenderSectionLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$RenderSection;getCompiled()Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$CompiledSection;"))
+    @Redirect(method = "renderSectionLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$RenderSection;getCompiled()Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$CompiledSection;"))
     public SectionRenderDispatcher.CompiledSection on(final SectionRenderDispatcher.RenderSection instance)
     {
         current = instance;
         return instance.getCompiled();
     }
 
-    @Redirect(method = "RenderSectionLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$CompiledSection;isEmpty(Lnet/minecraft/client/renderer/RenderType;)Z"))
+    @Redirect(method = "renderSectionLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/chunk/SectionRenderDispatcher$CompiledSection;isEmpty(Lnet/minecraft/client/renderer/RenderType;)Z"))
     public boolean on(final SectionRenderDispatcher.CompiledSection instance, final RenderType type)
     {
         boolean returnv =
